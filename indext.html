@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sithum Gaming Official</title>
+    <style>
+        /* Base Themes & Variables */
+        :root {
+            --bg-dark: #05070a;
+            --panel-bg: #11141a;
+            --panel-card: #171c24;
+            --neon-cyan: #00f3ff;
+            --neon-gold: #ffb700;
+            --text-light: #ffffff;
+            --text-gray: #8a99ad;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Particles Canvas Background */
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Navigation Bar */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            background: rgba(5, 7, 10, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 243, 255, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-logo {
+            font-size: 1.5rem;
+            font-weight: 900;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-light);
+            text-decoration: none;
+        }
+
+        .nav-logo span {
+            color: var(--neon-cyan);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: var(--text-gray);
+            text-decoration: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            transition: 0.3s;
+            letter-spacing: 1px;
+        }
+
+        .nav-links a:hover {
+            color: var(--neon-cyan);
+            text-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        /* All Sections Common Style */
+        section {
+            padding: 100px 8% 80px 8%;
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 50px;
+            color: var(--text-light);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--neon-cyan);
+            box-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        /* Home Section */
+        #home {
+            padding-top: 60px;
+        }
+
+        .logo-box {
+            position: relative;
+            width: 220px;
+            height: 220px;
+            margin-bottom: 30px;
+        }
+
+        .outer-ring {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 4px solid transparent;
+            border-top-color: var(--neon-cyan);
+            border-bottom-color: var(--neon-cyan);
+            border-radius: 50%;
+            animation: spin 6s linear infinite;
+            filter: drop-shadow(0 0 12px var(--neon-cyan));
+            z-index: 2;
+        }
+
+        .inner-ring {
+            position: absolute;
+            top: 15px; left: 15px; right: 15px; bottom: 15px;
+            border: 2px dashed var(--neon-gold);
+            border-radius: 50%;
+            animation: spin-reverse 4s linear infinite;
+            opacity: 0.6;
+            z-index: 2;
+        }
+
+        /* YouTube Channel Logo */
+        .channel-logo {
+            position: absolute;
+            top: 25px;
+            left: 25px;
+            width: 170px;
+            height: 170px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #11141a;
+            z-index: 1;
+            background-color: #171c24;
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
+        }
+
+        .brand-title {
+            font-size: 4rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 8px;
+            margin-bottom: 5px;
+            background: linear-gradient(to right, #fff, #a3b8cc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-family: 'Arial Black', Impact, sans-serif;
+        }
+
+        .brand-subtitle {
+            font-size: 1.3rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 16px;
+            color: var(--neon-cyan);
+            margin-bottom: 40px;
+            padding-left: 16px;
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
+        }
+
+        .btn-container {
+            display: flex;
+            gap: 20px;
+        }
+
+        .btn {
+            padding: 15px 35px;
+            font-size: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: var(--neon-cyan);
+            color: #000;
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.4);
+        }
+
+        .btn-primary:hover {
+            background: #fff;
+            box-shadow: 0 0 25px rgba(255, 255, 255, 0.6);
+            transform: translateY(-3px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-light);
+            border: 2px solid rgba(255,255,255,0.1);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--neon-cyan);
+            color: var(--neon-cyan);
+            transform: translateY(-3px);
+        }
+
+        /* Videos Section */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .video-card {
+            display: block;
+            text-decoration: none;
+            background: rgba(23, 28, 36, 0.8);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: left;
+            transition: 0.3s;
+            backdrop-filter: blur(5px);
+        }
+
+        .video-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--neon-cyan);
+            box-shadow: 0 5px 20px rgba(0, 243, 255, 0.2);
+        }
+
+        .video-thumbnail {
+            width: 100%;
+            height: 170px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .video-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            color: var(--text-light);
+            font-weight: 700;
+            line-height: 1.4;
+        }
+
+        .video-card p {
+            font-size: 0.88rem;
+            color: var(--text-gray);
+            line-height: 1.5;
+        }
+
+        /* About Section */
+        .about-content {
+            max-width: 800px;
+            background: rgba(17, 20, 26, 0.8);
+            padding: 40px;
+            border-radius: 15px;
+            border: 1px solid rgba(255,255,255,0.03);
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.4);
+            backdrop-filter: blur(5px);
+        }
+
+        .about-content p {
+            font-size: 1.1rem;
+            color: var(--text-gray);
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        /* Contact Section */
+        .contact-container {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .contact-item {
+            background: rgba(23, 28, 36, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            text-decoration: none;
+            color: var(--text-light);
+            transition: 0.3s;
+            backdrop-filter: blur(5px);
+        }
+
+        .contact-item:hover {
+            border-color: var(--neon-gold);
+            transform: scale(1.02);
+        }
+
+        .contact-label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--neon-gold);
+            font-weight: 700;
+        }
+
+        .contact-value {
+            font-size: 1.3rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        /* Animations */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes spin-reverse {
+            0% { transform: rotate(360deg); }
+            100% { transform: rotate(0deg); }
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 25px;
+            background: #05070a;
+            font-size: 0.85rem;
+            color: var(--text-gray);
+            border-top: 1px solid rgba(255,255,255,0.02);
+            position: relative;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Colorful Floating Particles Background Layer -->
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="#home" class="nav-logo">Sithum<span>Gaming</span></a>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#videos">Videos</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- 1. Home Section -->
+    <section id="home">
+        <div class="logo-box">
+            <div class="outer-ring"></div>
+            <div class="inner-ring"></div>
+            <!-- Official Channel Logo -->
+            <img class="channel-logo" src="https://unavatar.io/youtube/gamingsithum1506" alt="Sithum Gaming Logo">
+        </div>
+
+        <h1 class="brand-title">Sithum</h1>
+        <h2 class="brand-subtitle">Gaming</h2>
+
+        <div class="btn-container">
+            <a href="https://www.youtube.com/@gamingsithum1506" target="_blank" class="btn btn-primary">Watch Live</a>
+            <a href="https://www.youtube.com/@gamingsithum1506" target="_blank" class="btn btn-secondary">Subscribe</a>
+        </div>
+    </section>
+
+    <!-- 2. Videos Section -->
+    <section id="videos">
+        <h2 class="section-title">Latest Videos</h2>
+        <div class="video-grid">
+            
+            <!-- Video 1 -->
+            <a href="https://youtu.be/fjm0b6j8uZ0" target="_blank" class="video-card">
+                <img class="video-thumbnail" src="https://img.youtube.com/vi/fjm0b6j8uZ0/hqdefault.jpg" alt="Car Parking Multiplayer Stream 1">
+                <h3>Car Parking Multiplayer Special Setup</h3>
+                <p>Check out this custom build and testing session inside Car Parking Multiplayer. Click to view the full race breakdown.</p>
+            </a>
+
+            <!-- Video 2 -->
+            <a href="https://www.youtube.com/live/F1hjAP9BhtY" target="_blank" class="video-card">
+                <img class="video-thumbnail" src="https://img.youtube.com/vi/F1hjAP9BhtY/hqdefault.jpg" alt="Car Parking Multiplayer Live Stream">
+                <h3>Car Parking Multiplayer Live Stream Room</h3>
+                <p>An explosive live stream event driving custom speed builds, drifting through major maps, and hanging out with viewers.</p>
+            </a>
+
+            <!-- Video 3 -->
+            <a href="https://youtu.be/OfbDFoRG7bA" target="_blank" class="video-card">
+                <img class="video-thumbnail" src="https://img.youtube.com/vi/OfbDFoRG7bA/hqdefault.jpg" alt="Car Parking Multiplayer Showcase">
+                <h3>Epic Drifts & Custom Lobby Actions</h3>
+                <p>Diving deep into engine modification secrets, tuning guides, and intense track action inside the server.</p>
+            </a>
+
+        </div>
+    </section>
+
+    <!-- 3. About Section -->
+    <section id="about">
+        <h2 class="section-title">About Me</h2>
+        <div class="about-content">
+            <p>Welcome to the official home of Sithum Gaming! I am a passionate content creator dedicated to bringing you high-quality gaming content, live streams, and detailed gameplay commentary.</p>
+            <p>On my YouTube channel, you will find thrilling competitive matches, epic playthroughs, and helpful gaming tips. Join our fast-growing community, subscribe to the channel, and let's dominate the leaderboards together!</p>
+        </div>
+    </section>
+
+    <!-- 4. Contact Section -->
+    <section id="contact">
+        <h2 class="section-title">Contact Info</h2>
+        <div class="contact-container">
+            <!-- Phone Link -->
+            <a href="tel:0774297337" class="contact-item">
+                <span class="contact-label">Phone Number</span>
+                <span class="contact-value">0774297337</span>
+            </a>
+            <!-- Email Link -->
+            <a href="mailto:your-email@gmail.com" class="contact-item">
+                <span class="contact-label">Email Address</span>
+                <span class="contact-value">your-email@gmail.com</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        &copy; 2026 Sithum Gaming. All Rights Reserved.
+    </footer>
+
+    <!-- JavaScript to Create Floating Colorful Balls Pattern -->
+    <script>
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+
+        let particlesArray = [];
+        const numberOfParticles = 80; ////
+        // Colorful Palette based on the screenshot
+        const colors = [
+            'rgba(0, 243, 255, 0.7)',  /* Neon Cyan */
+            'rgba(255, 183, 0, 0.7)',  /* Neon Gold */
+            'rgba(236, 72, 153, 0.7)', /* Neon Pink */
+            'rgba(168, 85, 247, 0.7)', /* Purple */
+            'rgba(34, 197, 94, 0.6)'   /* Green */
+        ];
+
+        // Resize Canvas
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        // Particle Class
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height + canvas.height; // Start below or randomly
+                this.size = Math.random() * 4 + 1.5; // Bubble Sizes
+                this.speedY = -(Math.random() * 0.8 + 0.2); // Upward float speed
+                this.speedX = Math.random() * 0.4 - 0.2; // Slight drift side to side
+                this.color = colors[Math.floor(Math.random() * colors.length)];
+            }
+
+            update() {
+                this.y += this.speedY;
+                this.x += this.speedX;
+
+                // Reset position if it goes off top screen
+                if (this.y < -10) {
+                    this.y = canvas.height + 10;
+                    this.x = Math.random() * canvas.width;
+                }
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = this.color;
+                ctx.fill();
+            }
+        }
+
+        // Initialize Pattern
+        function init() {
+            particlesArray = [];
+            for (let i = 0; i < numberOfParticles; i++) {
+                let p = new Particle();
+                p.y = Math.random() * canvas.height; // Spread initially across the screen
+                particlesArray.push(p);
+            }
+        }
+
+        // Animation Loop
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+                particlesArray[i].draw();
+            }
+            requestAnimationFrame(animate);
+        }
+
+        init();
+        animate();
+    </script>
+
+</body>
+</html>
